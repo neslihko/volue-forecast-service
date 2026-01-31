@@ -69,11 +69,7 @@ docs/
 | Document | Description | Read Time |
 |----------|-------------|-----------|
 | [README.md](#) (this file) | Quick start, API reference, troubleshooting | 30-40 min |
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Detailed system design, layered architecture, data flow | 30-40 min |
-| [DECISION_LOG.md](docs/DECISION_LOG.md) | Technology choices, trade-offs, architectural decisions | 20-25 min |
-| [API_EXAMPLES.md](docs/API_EXAMPLES.md) | Extended API examples, error handling, best practices | 25-30 min |
-| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Kubernetes deployment, scaling, monitoring, CI/CD | 20-25 min |
-| [TESTING.md](docs/TESTING.md) | Test coverage, integration testing with Testcontainers | 15-20 min |
+ 
 
 ---
 
