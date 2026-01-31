@@ -1,0 +1,46 @@
+﻿## .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+
+## IDE
+.vs/
+.vscode/
+.idea/
+
+## Build
+[Dd]ebug/
+[Rr]elease/
+build/
+publish/
+
+## NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+
+## Test Results / Coverage
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+
+## Logs
+logs/
+*.log
+
+## Env
+.env
+.env.local
+appsettings.*.local.json
+
+## OS
+.DS_Store
+Thumbs.db
+/scripts
+/TODO.md
+/docs/SMARTPULSE_ASSESSMENT_REVIEW.md

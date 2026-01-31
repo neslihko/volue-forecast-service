@@ -1,4 +1,4 @@
-﻿# =============================================================================
+# =============================================================================
 # Volue Forecast Service - Docker Compose
 # =============================================================================
 # Services:
@@ -21,9 +21,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=forecast_db;Username=postgres;Password=postgres
-      - RabbitMQ__Host=rabbitmq
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ConnectionStrings__DefaultConnection=Host=volue-postgres;Port=5432;Database=forecast_db;Username=postgres;Password=postgres
+      - RabbitMQ__Host=volue-rabbitmq 
       - RabbitMQ__Port=5672
       - RabbitMQ__Username=guest
       - RabbitMQ__Password=guest

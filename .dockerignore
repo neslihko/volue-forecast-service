@@ -1,0 +1,34 @@
+﻿# Build artifacts
+**/bin/
+**/obj/
+**/out/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+
+# Git
+.git/
+.gitignore
+
+# Tests
+**/TestResults/
+**/*.trx
+
+# Documentation
+docs/
+*.md
+
+# Logs
+logs/
+*.log
+
+# Docker
+**/Dockerfile*
+**/docker-compose*
+
+# Misc
+*.ps1
+*.sh
