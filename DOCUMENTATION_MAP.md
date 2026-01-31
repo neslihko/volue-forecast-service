@@ -1,8 +1,6 @@
 # Volue Forecast Service - Documentation Map
 
 **Generated:** 2026-01-30  
-**Total Files:** 35+  
-**Mermaid Diagrams:** 15+  
 **Author:** Neslihan Korkmaz  
 
 ---
@@ -122,10 +120,7 @@ volue-forecast-service/
 │   ├── 📄 docker-compose.yml ......... Full stack
 │   └── 📄 init-db.sql ................ Database initialization
 │
-└── 📁 scripts/
-    ├── 📄 init-project.ps1 ........... Project scaffolding
-    ├── 📄 setup-docker.ps1 ........... Docker configuration
-    └── 📄 run-tests.ps1 .............. Test execution
+
 ```
 
 ---
@@ -143,7 +138,6 @@ volue-forecast-service/
 | **src/Contracts** | 8 | DTOs, events, interfaces |
 | **tests/** | 6 | Unit and integration tests |
 | **docker/** | 3 | Containerization |
-| **scripts/** | 3 | Automation |
 | **Root** | 7 | Config, solution |
 
 ### Key Documentation Files
@@ -185,10 +179,7 @@ docs/DATABASE_SCHEMA.md
     ├──► src/Repositories/Migrations/
     └──► docs/ARCHITECTURE.md
 
-TODO.md
-    ├──► All phases reference specific files
-    ├──► scripts/ for automation
-    └──► tests/ for verification
+
 ```
 
 ### Component Dependencies
@@ -262,7 +253,6 @@ graph TB
     end
 
     README --> ARCH
-    README --> TODO
     README --> DOCKER
     
     TODO --> ARCH
@@ -321,7 +311,6 @@ graph TB
 | Document | Key Topics | Priority |
 |----------|------------|----------|
 | docker/ | Containerization | ⭐⭐⭐ |
-| scripts/ | Automation | ⭐⭐ |
 | TODO.md | Phase 3 (Docker) | ⭐⭐⭐ |
 
 ---
@@ -332,21 +321,14 @@ graph TB
 
 **Quick Review (15 minutes):**
 1. README.md - Project overview
-2. TODO.md - Scope understanding
 3. DECISION_LOG.md - Technical thinking
 
 **Deep Review (45 minutes):**
 1. ARCHITECTURE.md - System design
-2. API_SPECIFICATION.md - API contracts
 3. src/Services/ - Business logic quality
 
 ### 👨‍💻 Developer (Self - Implementation)
 
-**Phase Order:**
-1. TODO.md - Follow phases 1-11
-2. scripts/init-project.ps1 - Bootstrap
-3. scripts/setup-docker.ps1 - Infrastructure
-4. Implement phase by phase
 
 **Key Implementation Files:**
 1. src/Repositories/ForecastRepository.cs - UPSERT logic
@@ -375,24 +357,7 @@ graph TB
 
 ---
 
-## Maintenance
 
-### When Adding New Features
-
-1. Update TODO.md with new tasks
-2. Update DOCUMENTATION_MAP.md
-3. Add Mermaid diagrams if needed
-4. Update API_SPECIFICATION.md if new endpoints
-5. Add tests
-
-### When Changing Architecture
-
-1. Update ARCHITECTURE.md
-2. Update relevant diagrams
-3. Update DECISION_LOG.md with rationale
-4. Review cross-references
-
----
 
 *Document Version: 1.0*  
 *Last Updated: 2026-01-30*  
