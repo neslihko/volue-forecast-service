@@ -1,8 +1,6 @@
 # Volue Forecast Service - Documentation Map
 
 **Generated:** 2026-01-30  
-**Total Files:** 35+  
-**Mermaid Diagrams:** 15+  
 **Author:** Neslihan Korkmaz  
 
 ---
@@ -122,10 +120,7 @@ volue-forecast-service/
 │   ├── 📄 docker-compose.yml ......... Full stack
 │   └── 📄 init-db.sql ................ Database initialization
 │
-└── 📁 scripts/
-    ├── 📄 init-project.ps1 ........... Project scaffolding
-    ├── 📄 setup-docker.ps1 ........... Docker configuration
-    └── 📄 run-tests.ps1 .............. Test execution
+
 ```
 
 ---
