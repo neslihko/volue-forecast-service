@@ -565,34 +565,56 @@ Use these IDs for testing:
 ```
 volue-forecast-service/
 ├── src/
-│   ├── Volue.ForecastService.Api/              # Presentation Layer
-│   │   ├── Controllers/                         # HTTP endpoints
-│   │   ├── Middleware/                          # Cross-cutting concerns
-│   │   └── Program.cs                           # Application bootstrap
-│   ├── Volue.ForecastService.Services/         # Business Logic Layer
-│   │   ├── ForecastService.cs                   # Validation + orchestration
-│   │   ├── PositionService.cs                   # Aggregation logic
-│   │   └── Messaging/                           # Event publishing
-│   ├── Volue.ForecastService.Repositories/     # Data Access Layer
-│   │   ├── ForecastWriteRepository.cs          # ⭐ Bulk UPSERT
-│   │   ├── ForecastReadRepository.cs           # Time-range queries
-│   │   └── ForecastDbContext.cs                # EF Core context
-│   └── Volue.ForecastService.Contracts/        # Shared Layer
-│       ├── Models/                              # Domain models
-│       ├── DTOs/                                # Data transfer objects
-│       └── Services/                            # Service interfaces
+│   ├── Volue.ForecastService.Api/                # Presentation Layer (Web API)
+│   │   ├── Controllers/                          # HTTP endpoints (Forecasts, Positions, PowerPlants, Health)
+│   │   ├── Middleware/                           # Cross-cutting concerns (CorrelationId, ExceptionHandling)
+│   │   ├── Models/                               # API response models
+│   │   └── Program.cs                            # Application bootstrap
+│   ├── Volue.ForecastService.Services/           # Business Logic Layer
+│   │   ├── ForecastService.cs                    # Validation + orchestration
+│   │   ├── PositionService.cs                    # Aggregation logic
+│   │   ├── PowerPlantService.cs                  # Metadata operations
+│   │   ├── Messaging/                            # Event publishing
+│   │   │   ├── RabbitMqEventPublisher.cs         # RabbitMQ integration
+│   │   │   └── NullEventPublisher.cs             # No-op publisher
+│   │   └── ServiceCollectionExtensions.cs        # DI registration
+│   ├── Volue.ForecastService.Repositories/       # Data Access Layer
+│   │   ├── ForecastWriteRepository.cs            # Bulk UPSERT
+│   │   ├── ForecastReadRepository.cs             # Time-range queries
+│   │   ├── PositionReadRepository.cs             # Aggregation queries
+│   │   ├── PowerPlantRepository.cs               # Metadata queries
+│   │   ├── Entities/                             # EF Core entities
+│   │   ├── Configurations/                       # EF Core model configs
+│   │   ├── Migrations/                           # Database migrations
+│   │   └── ForecastDbContext.cs                  # EF Core context
+│   └── Volue.ForecastService.Contracts/          # Shared Layer (Domain)
+│       ├── Models/                               # Domain models
+│       ├── DTOs/                                 # Data transfer objects
+│       ├── Events/                               # Domain events
+│       ├── Services/                             # Service interfaces
+│       ├── Repositories/                         # Repository interfaces
+│       └── Common/                               # Error handling, Result pattern
 ├── tests/
-│   ├── Volue.ForecastService.IntegrationTests/ # API tests
-│   └── Volue.ForecastService.UnitTests/        # Business logic tests
+│   ├── Volue.ForecastService.IntegrationTests/   # API and integration tests
+│   │   ├── ForecastsControllerTests.cs
+│   │   ├── PositionsControllerTests.cs
+│   │   ├── SupportingEndpointsTests.cs
+│   │   └── ForecastServiceWebApplicationFactory.cs
+│   └── Volue.ForecastService.UnitTests/          # Business logic unit tests
+│       ├── CompanyPositionTests.cs
+│       ├── UpsertResultTests.cs
+│       └── ForecastPointTests.cs
 ├── docs/
-│   ├── ARCHITECTURE.md                          # System design + diagrams
-│   ├── DECISION_LOG.md                          # Technology choices
-│   ├── API_EXAMPLES.md                          # Extended API guide
-│   ├── DEPLOYMENT.md                            # Production deployment
-│   └── TESTING.md                               # Testing strategy
+│   ├── ARCHITECTURE.md                           # System design + diagrams
+│   ├── DECISION_LOG.md                           # Technology choices
+│   ├── API_EXAMPLES.md                           # Extended API guide
+│   ├── DEPLOYMENT.md                             # Production deployment
+│   └── TESTING.md                                # Testing strategy
 └── docker/
-    ├── Dockerfile                               # Multi-stage build
-    └── docker-compose.yml                       # Full stack setup
+    ├── Dockerfile                                # Multi-stage build
+    └── docker-compose.yml                        # Full stack setup
+
+
 ```
 
 ---
