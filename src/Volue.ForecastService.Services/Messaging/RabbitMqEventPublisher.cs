@@ -18,7 +18,7 @@ public class RabbitMqEventPublisher : IEventPublisher, IDisposable
     private readonly string _exchangeName;
     private readonly string _routingKey;
     private IConnection? _connection;
-    private IModel? _channel;
+    private IChannel? _channel;
     private bool _isEnabled;
     private readonly object _lock = new();
 
@@ -56,15 +56,16 @@ public class RabbitMqEventPublisher : IEventPublisher, IDisposable
                 NetworkRecoveryInterval = TimeSpan.FromSeconds(10)
             };
 
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
+            // RabbitMQ.Client 7.0 async API
+            _connection = factory.CreateConnectionAsync().GetAwaiter().GetResult();
+            _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
 
             // Declare exchange (idempotent)
-            _channel.ExchangeDeclare(
+            _channel.ExchangeDeclareAsync(
                 exchange: _exchangeName,
                 type: ExchangeType.Topic,
                 durable: true,
-                autoDelete: false);
+                autoDelete: false).GetAwaiter().GetResult();
 
             _logger.LogInformation(
                 "RabbitMQ connection established. Exchange: {Exchange}, RoutingKey: {RoutingKey}",
@@ -100,27 +101,30 @@ public class RabbitMqEventPublisher : IEventPublisher, IDisposable
 
             var body = Encoding.UTF8.GetBytes(message);
 
-            // Publish properties
-            var properties = _channel.CreateBasicProperties();
-            properties.Persistent = true;
-            properties.ContentType = "application/json";
-            properties.MessageId = @event.EventId.ToString();
-            properties.Timestamp = new AmqpTimestamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-            properties.Headers = new Dictionary<string, object>
+            // Publish properties (RabbitMQ 7.0 API)
+            var properties = new BasicProperties
             {
-                ["correlation-id"] = @event.CorrelationId,
-                ["event-type"] = nameof(PositionChangedEvent),
-                ["company-id"] = @event.CompanyId.ToString(),
-                ["plant-id"] = @event.PlantId.ToString()
+                Persistent = true,
+                ContentType = "application/json",
+                MessageId = @event.EventId.ToString(),
+                Timestamp = new AmqpTimestamp(DateTimeOffset.UtcNow.ToUnixTimeSeconds()),
+                Headers = new Dictionary<string, object?>
+                {
+                    ["correlation-id"] = @event.CorrelationId,
+                    ["event-type"] = nameof(PositionChangedEvent),
+                    ["company-id"] = @event.CompanyId.ToString(),
+                    ["plant-id"] = @event.PlantId.ToString()
+                }
             };
 
             lock (_lock)
             {
-                _channel.BasicPublish(
+                _channel.BasicPublishAsync(
                     exchange: _exchangeName,
                     routingKey: _routingKey,
+                    mandatory: false,
                     basicProperties: properties,
-                    body: body);
+                    body: body).GetAwaiter().GetResult();
             }
 
             _logger.LogInformation(
@@ -142,9 +146,9 @@ public class RabbitMqEventPublisher : IEventPublisher, IDisposable
     {
         try
         {
-            _channel?.Close();
+            _channel?.CloseAsync().GetAwaiter().GetResult();
             _channel?.Dispose();
-            _connection?.Close();
+            _connection?.CloseAsync().GetAwaiter().GetResult();
             _connection?.Dispose();
         }
         catch (Exception ex)

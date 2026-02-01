@@ -61,8 +61,8 @@ public class ForecastWriteRepository : IForecastWriteRepository
                     updated_at = @now::timestamptz
                 WHERE forecasts.mwh IS DISTINCT FROM EXCLUDED.mwh
                 RETURNING 
-                    (xmax = 0) AS was_inserted,
-                    (xmax > 0 AND forecasts.mwh IS DISTINCT FROM EXCLUDED.mwh) AS was_updated
+                    (xmax::text::int = 0) AS was_inserted,
+                    (xmax::text::int > 0) AS was_updated
             )
             SELECT 
                 COUNT(*) FILTER (WHERE was_inserted = true) AS inserted_count,
