@@ -4,7 +4,7 @@ using Serilog.Context;
 using Volue.ForecastService.Api.Middleware;
 using Volue.ForecastService.Repositories;
 using Volue.ForecastService.Services;
-
+using Scalar.AspNetCore;
 // Configure Serilog early
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(new ConfigurationBuilder()
@@ -110,9 +110,11 @@ app.UseSerilogRequestLogging(options =>
 // Global exception handling (after correlation ID)
 app.UseExceptionHandlingMiddleware();
 
-if (app.Environment.IsDevelopment())
+// Enable OpenAPI/Swagger in Development and Docker environments
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Docker"))
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(); // Modern Swagger UI alternative
 }
 
 app.UseHttpsRedirection();
