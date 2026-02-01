@@ -16,9 +16,9 @@
 **Energy Trading Corp** operates three renewable energy power plants across Europe and needs a system to manage hourly production forecasts and calculate company-wide positions for trading operations.
 
 ### Power Plants
-- 🇹🇷 **Istanbul Wind Farm** (Turkey) - 150 MWh capacity
-- 🇧🇬 **Sofia Solar Park** (Bulgaria) - 200 MWh capacity  
-- 🇪🇸 **Madrid Hydro Station** (Spain) - 300 MWh capacity
+- 🇹🇷 **Istanbul ** (Turkey) - 150 MWh capacity
+- 🇧🇬 **Sofia** (Bulgaria) - 200 MWh capacity  
+- 🇪🇸 **Madrid ** (Spain) - 300 MWh capacity
 
 ### Solution Capabilities
 This microservice provides:
